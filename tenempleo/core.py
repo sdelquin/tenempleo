@@ -32,12 +32,8 @@ class TenEmpleo:
         for user in self.config['users']:
             job_offers = []
             for job_offer in self.job_offers:
-                if normalized_location := utils.is_target_location(
-                    job_offer['location'], user['locations']
-                ):
+                if utils.is_target_location(job_offer['location'], user['locations']):
                     if utils.is_target_job(job_offer['longText'], user['targets']):
-                        # fix job location
-                        job_offer['location'] = normalized_location
                         job_offers.append(job_offer)
             matched_jobs.append(dict(user=user, job_offers=job_offers))
         return matched_jobs

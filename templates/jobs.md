@@ -6,9 +6,9 @@ Hemos encontrado algunas ofertas de empleo que te pueden resultar de interés:
 
 **{{ job_offer['shortText'] }}**
 
-- Fecha de publicación: {{ job_offer['date'] }}
+- Fecha de publicación: {{ job_offer['date'] | format_date }}
 
-- Ubicación: {{ job_offer['location'] }}
+- Ubicación: {{ job_offer['location'] | format_location }}
 
 - Descripción: {{ job_offer['longText']|replace('\n', ' | ') }}
 

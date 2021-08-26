@@ -1,14 +1,15 @@
 import re
 
+import jinja2
 import markdown
 import settings
-from jinja2 import Template
+
+from tenempleo import filters
 
 
 def is_target_location(job_location: str, target_locations: list[str]):
     normalized_location = settings.LOCATION_MAPPING.get(job_location)
-    if normalized_location.lower() in [i.lower() for i in target_locations]:
-        return normalized_location
+    return normalized_location.lower() in [i.lower() for i in target_locations]
 
 
 def is_target_job(job_text: str, targets: list[str]):
@@ -18,9 +19,17 @@ def is_target_job(job_text: str, targets: list[str]):
     return False
 
 
+def init_jinja():
+    loader = jinja2.FileSystemLoader(settings.TEMPLATES_DIR)
+    env = jinja2.Environment(loader=loader)
+    env.filters['format_date'] = filters.format_date
+    env.filters['format_location'] = filters.format_location
+    return env
+
+
 def render_job_message(item: dict):
-    with open(settings.JOBS_MESSAGE_TEMPLATE) as f:
-        template = Template(f.read())
+    jinja_env = init_jinja()
+    template = jinja_env.get_template(settings.JOBS_MESSAGE_TEMPLATE)
     rendered_template = template.render(
         username=item['user']['name'], job_offers=item['job_offers']
     )
