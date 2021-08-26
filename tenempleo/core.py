@@ -48,12 +48,10 @@ class TenEmpleo:
         for user in self.config['users']:
             job_offers = []
             for job_offer in self.job_offers:
-                logger.debug(job_offer['shortText'])
                 if self._is_eligible_job(user, job_offer):
+                    logger.debug(job_offer['shortText'])
                     logger.debug('Match! Appending to eligible job offers...')
                     job_offers.append(job_offer)
-                else:
-                    logger.debug('Not eligible!')
             matched_jobs.append(dict(user=user, job_offers=job_offers))
         return matched_jobs
 
