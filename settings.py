@@ -13,3 +13,15 @@ NOTIFICATION_FROM_NAME = config('NOTIFICATION_FROM_NAME')
 JOBS_MESSAGE_TEMPLATE = config(
     'JOBS_MESSAGE_TEMPLATE', default=PROJECT_DIR / PROJECT_NAME / 'jobs.md'
 )
+
+LOCATION_MAPPING = {
+    'canarias': 'Canarias',
+    'elhierro': 'El Hierro',
+    'fuerteventura': 'Fuerteventura',
+    'grancanaria': 'Gran Canaria',
+    'lagomera': 'La Gomera',
+    'lagraciosa': 'La Graciosa',
+    'lanzarote': 'Lanzarote',
+    'lapalma': 'La Palma',
+    'tenerife': 'Tenerife',
+}

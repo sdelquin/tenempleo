@@ -7,7 +7,11 @@ Hemos encontrado algunas ofertas de empleo que te pueden resultar de interés:
 **{{ job_offer['shortText'] }}**
 
 - Fecha de publicación: {{ job_offer['date'] }}
+
+- Ubicación: {{ job_offer['location'] }}
+
 - Descripción: {{ job_offer['longText']|replace('\n', ' | ') }}
+
 {% if job_offer['email'] %}
 - Email de contacto: {{ job_offer['email'] }}
 {% endif %}

@@ -5,6 +5,12 @@ import settings
 from jinja2 import Template
 
 
+def is_target_location(job_location: str, target_locations: list[str]):
+    normalized_location = settings.LOCATION_MAPPING.get(job_location)
+    if normalized_location.lower() in [i.lower() for i in target_locations]:
+        return normalized_location
+
+
 def is_target_job(job_text: str, targets: list[str]):
     for term in targets:
         if all([re.search(rf'\b{w}\b', job_text, re.I) for w in re.split(r'[ ,]+', term)]):
