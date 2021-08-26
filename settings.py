@@ -3,7 +3,6 @@ from pathlib import Path
 from prettyconf import config
 
 PROJECT_DIR = Path(__file__).resolve().parent
-PROJECT_NAME = PROJECT_DIR.stem
 TEMPLATES_DIR = PROJECT_DIR / 'templates'
 
 TENEMPLEO_GCP_URL = config('TENEMPLEO_GCP_URL')
@@ -28,3 +27,7 @@ LOCATION_MAPPING = {
 }
 
 REDIS_DB = config('REDIS_DB', default=0, cast=int)
+
+LOGFILE = config('LOGFILE', default=PROJECT_DIR / (PROJECT_DIR.name + '.log'))
+LOGFILE_SIZE = config('LOGFILE_SIZE', cast=float, default=1e6)
+LOGFILE_BACKUP_COUNT = config('LOGFILE_BACKUP_COUNT', cast=int, default=3)

@@ -6,3 +6,5 @@ sendgrify
 jinja2
 markdown
 redis
+logzero
+typer
