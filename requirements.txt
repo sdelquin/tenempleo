@@ -2,3 +2,6 @@ prettyconf
 requests
 user_agent
 pyyaml
+sendgrify
+jinja2
+markdown
