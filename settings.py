@@ -1,3 +1,3 @@
 from prettyconf import config
 
-TENEMPLEO_URL = config('TENEMPLEO_URL', default='https://www.tenempleo.com/')
+TENEMPLEO_GCP_URL = config('TENEMPLEO_GCP_URL')
