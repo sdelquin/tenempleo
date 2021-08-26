@@ -26,3 +26,5 @@ LOCATION_MAPPING = {
     'lapalma': 'La Palma',
     'tenerife': 'Tenerife',
 }
+
+REDIS_DB = config('REDIS_DB', default=0, cast=int)
