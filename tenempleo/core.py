@@ -29,7 +29,7 @@ class TenEmpleo:
         return yaml.load(config_file.read_text(), Loader=yaml.FullLoader)
 
     def _get_job_offers(self, url):
-        logger.info(f'Requesting data from {url}...')
+        logger.info(f'Requesting data from {url} ...')
         response = requests.get(url, headers={'User-Agent': generate_user_agent()})
         return response.json()
 
@@ -43,33 +43,36 @@ class TenEmpleo:
         )
 
     def _match_jobs(self):
-        logger.info('Matching job offers with user indications...')
         matched_jobs = []
         for user in self.config['users']:
+            username = user['name']
+            logger.debug(f'{username}: Matching job offers...')
             job_offers = []
             for job_offer in self.job_offers:
                 if self._is_eligible_job(user, job_offer):
-                    logger.debug(job_offer['shortText'])
-                    logger.debug('Match! Appending to eligible job offers...')
+                    logger.debug(f'{job_offer["shortText"]} ({job_offer["id"]})')
+                    logger.debug(
+                        f'{username}: ↑ Match! Appending to eligible job offers...'
+                    )
                     job_offers.append(job_offer)
             matched_jobs.append(dict(user=user, job_offers=job_offers))
         return matched_jobs
 
     def notify(self):
-        logger.info('Notifying users with matched job offers...')
         sg = SendGrid(
             api_key=settings.SENDGRID_APIKEY,
             from_addr=settings.NOTIFICATION_FROM_ADDR,
             from_name=settings.NOTIFICATION_FROM_NAME,
         )
         for item in self.matched_jobs:
-            logger.debug(f'Handling user {item["user"]["name"]}...')
+            username = item["user"]["name"]
+            logger.debug(f'{username}: Notifying user...')
             if len(item['job_offers']) == 0:
-                logger.debug('No job offers found. Skipped!')
+                logger.debug(f'{username}: No job offers found. Skipped!')
                 continue
             msg = utils.render_job_message(item)
             user_email = item['user']['email']
-            logger.debug(f'Sending email to {user_email}...')
+            logger.debug(f'{username}: Sending email to {user_email}...')
             sg.send(to=user_email, subject='Ofertas de Tenempleo', msg=msg, html=True)
             # update delivered job offers
             logger.debug('Updating delivered job offers on redis...')
