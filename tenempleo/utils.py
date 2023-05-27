@@ -35,7 +35,7 @@ def init_logger():
 
 
 def is_target_location(job_location: str, target_locations: list[str]):
-    normalized_location = settings.LOCATION_MAPPING.get(job_location)
+    normalized_location = settings.LOCATION_MAPPING.get(job_location, '')
     return normalized_location.lower() in [i.lower() for i in target_locations]
 
 
