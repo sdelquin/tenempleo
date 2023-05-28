@@ -2,9 +2,8 @@ import re
 
 import jinja2
 import logzero
-import markdown
-import settings
 
+import settings
 from tenempleo import filters
 
 
@@ -57,7 +56,4 @@ def init_jinja():
 def render_job_message(item: dict):
     jinja_env = init_jinja()
     template = jinja_env.get_template(settings.JOBS_MESSAGE_TEMPLATE)
-    rendered_template = template.render(
-        username=item['user']['name'], job_offers=item['job_offers']
-    )
-    return markdown.markdown(rendered_template)
+    return template.render(username=item['user']['name'], job_offers=item['job_offers'])

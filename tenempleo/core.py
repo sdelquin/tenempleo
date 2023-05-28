@@ -2,12 +2,12 @@ from pathlib import Path
 
 import redis
 import requests
-import settings
 import yaml
 from logzero import logger
-from sendgrify.core import SendGrid
+from sendgrify import SendGrid
 from user_agent import generate_user_agent
 
+import settings
 from tenempleo import utils
 
 
@@ -58,7 +58,7 @@ class TenEmpleo:
 
     def notify(self):
         sg = SendGrid(
-            api_key=settings.SENDGRID_APIKEY,
+            apikey=settings.SENDGRID_APIKEY,
             from_addr=settings.NOTIFICATION_FROM_ADDR,
             from_name=settings.NOTIFICATION_FROM_NAME,
         )
@@ -71,7 +71,7 @@ class TenEmpleo:
             msg = utils.render_job_message(item)
             user_email = item['user']['email']
             logger.debug(f'{username}: Sending email to {user_email}...')
-            sg.send(to=user_email, subject='Ofertas de Tenempleo', msg=msg, html=True)
+            sg.send(to=user_email, subject='Ofertas de Tenempleo', msg=msg, as_markdown=True)
             # update delivered job offers
             logger.debug('Updating delivered job offers on redis...')
             for job_offer in item['job_offers']:

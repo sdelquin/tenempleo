@@ -4,7 +4,6 @@ user_agent
 pyyaml
 sendgrify
 jinja2
-markdown
 redis
 logzero
 typer
