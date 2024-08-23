@@ -1,5 +1,5 @@
 #!/bin/bash
 
-source ~/.pyenv/versions/tenempleo/bin/activate
 cd "$(dirname "$0")"
+source .venv/bin/activate
 exec python main.py $@
