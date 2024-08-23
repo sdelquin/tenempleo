@@ -1,6 +1,6 @@
 __pycache__
 *.pyc
-*.log
+*.log*
 .env
 config.yml
 .python-version
